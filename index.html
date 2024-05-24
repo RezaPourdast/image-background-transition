@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image background transition</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="img-box">
+        <img src="" width="100%" id="trImg" />
+
+        <div class="img-wrap">
+          <img src="" id="orgImg" />
+        </div>
+
+        <span id="line">
+          <img src="background_change_img/arrow.png" class="arrow" />
+        </span>
+      </div>
+
+      <button id="nextBtn">Next Image👉🏻</button>
+      <button id="beforeBtn">👈🏻Previous Image</button>
+    </div>
+
+    <script>
+      let imgBox = document.querySelector(".img-box");
+      let imgWrap = document.querySelector(".img-wrap");
+      let orgImg = document.getElementById("orgImg");
+      let trImg = document.getElementById("trImg");
+      let line = document.getElementById("line");
+      let nextBtn = document.getElementById("nextBtn");
+      let beforeBtn = document.getElementById("beforeBtn");
+      let imgNumber = 0;
+
+      images = [
+        {
+          org: "background_change_img/original.jpg",
+          tr: "background_change_img/transparent.png",
+        },
+        {
+          org: "background_change_img/toyta-supra-mk80.jpg",
+          tr: "background_change_img/toyta-supra-mk80.png",
+        },
+        {
+          org: "background_change_img/lXm8T7Qs.jpg",
+          tr: "background_change_img/lXm8T7Qs.png",
+        },
+      ];
+
+      orgImg.src = images[imgNumber].org;
+      trImg.src = images[imgNumber].tr;
+
+      orgImg.style.width = imgBox.offsetWidth + "px";
+
+      let leftSpace = imgBox.offsetLeft;
+
+      imgBox.onmousemove = function (e) {
+        let boxWidth = e.pageX - leftSpace + "px";
+        imgWrap.style.width = boxWidth;
+        line.style.left = boxWidth;
+      };
+
+      nextBtn.addEventListener("click", () => {
+        if (imgNumber < 0) {
+          imgNumber = 0;
+        }
+        imgNumber += 1;
+        orgImg.src = images[imgNumber].org;
+        trImg.src = images[imgNumber].tr;
+      });
+
+      beforeBtn.addEventListener("click", () => {
+        if (imgNumber > 2) {
+          imgNumber = 2;
+        }
+        imgNumber -= 1;
+        orgImg.src = images[imgNumber].org;
+        trImg.src = images[imgNumber].tr;
+      });
+    </script>
+  </body>
+</html>
